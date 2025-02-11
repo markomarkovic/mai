@@ -1,7 +1,7 @@
 
 function mai-commit --description "Generate a git commit message based on staged changes"
 
-    argparse h/help e/edit -- $argv
+    argparse h/help e/edit a/amend -- $argv
 
     # Display help and exit
     if set --query _flag_help
@@ -11,6 +11,7 @@ function mai-commit --description "Generate a git commit message based on staged
         echo "Options:" >&2
         echo "       -h, --help     Print this help message" >&2
         echo "       -e, --edit     Edit the message before commiting" >&2
+        echo "       -a, --amend    Amend the last commit with the new message" >&2
         echo "" >&2
         echo ""
         return 0
@@ -21,7 +22,12 @@ function mai-commit --description "Generate a git commit message based on staged
         return 1
     end
 
-    set --local GIT_DIFF (git diff --staged)
+    set --function GIT_DIFF ""
+    if set --query _flag_amend
+        set --function GIT_DIFF (git diff HEAD^ HEAD)
+    else
+        set --function GIT_DIFF (git diff --staged)
+    end
     if test "$GIT_DIFF" = ""
         echo "No staged changes found. Please stage your changes first."
         return 1
@@ -67,6 +73,10 @@ After the initial line, add a description of why the change is needed.
 
     if set --query _flag_edit
         editor $TMP_MESSAGE_FILE
+    end
+
+    if set --query _flag_amend
+        git commit --amend --file $TMP_MESSAGE_FILE && rm -f $TMP_MESSAGE_FILE && return 0 || rm -f $TMP_MESSAGE_FILE && return 1
     end
 
     git commit --file $TMP_MESSAGE_FILE && rm -f $TMP_MESSAGE_FILE && return 0 || rm -f $TMP_MESSAGE_FILE && return 1
