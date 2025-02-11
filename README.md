@@ -1,4 +1,6 @@
-# mAI - AI Assistant for Software Engineers
+# mAI - AI Assistant
+
+__for Software Engineers living in the `fish` shell_
 
 mAI is an AI assistant designed to help software engineers with various tasks within their development workflow. Initially, it focuses on generating commit messages based on staged changes in a Git repository.
 
@@ -39,6 +41,7 @@ Options:
 
 ## Requirements
 
+- [`fish shell`](https://fishshell.com/): A command line shell for the 90s
 - [`fisher`](https://github.com/jorgebucaran/fisher): A plugin manager for Fish
 - [`git`](https://git-scm.com/): Git SCM
 - [`ollama`](https://ollama.com/): Ollama CLI for running models locally
@@ -48,7 +51,7 @@ Options:
 ### Using Fisher (Recommended)
 
 ```sh
-fisher install markomarkovic/mai
+fisher install markomarkovic/mai.fish
 ```
 
 ## Contribution
