@@ -22,7 +22,6 @@ function mai-commit --description "Generate a git commit message based on staged
         return 1
     end
 
-    set --function GIT_DIFF ""
     if set --query _flag_amend
         set --function GIT_DIFF (git diff HEAD^ HEAD)
     else
