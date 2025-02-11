@@ -1,6 +1,6 @@
 # mAI - AI Assistant
 
-__for Software Engineers living in the `fish` shell_
+_for Software Engineers living in the `fish` shell_
 
 mAI is an AI assistant designed to help software engineers with various tasks within their development workflow. Initially, it focuses on generating commit messages based on staged changes in a Git repository.
 
