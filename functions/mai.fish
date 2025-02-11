@@ -1,5 +1,5 @@
 function mai --description "My AI assistant"
-    set --local mai_version "0.0.1"
+    set --local mai_version "1.0.0"
 
     # Model can be overridden by setting OLLAMA_MODEL env var. If not set, use the default.
     if not set --query OLLAMA_MODEL
