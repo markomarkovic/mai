@@ -39,6 +39,14 @@ Options:
        -a, --amend    Amend the last commit with the new message
 ```
 
+### Settings
+
+You can set the desired commit type by setting the `MAI_COMMIT_TYPE` environment variable. Valid values include: `PLAIN` (default), and `CONVENTIONAL` (for conventional commits).
+
+```fish
+set -Ux MAI_COMMIT_TYPE <desired_commit_type>
+```
+
 ## Requirements
 
 - [`fish shell`](https://fishshell.com/): A command line shell for the 90s
