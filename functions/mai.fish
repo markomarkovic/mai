@@ -3,7 +3,7 @@ function mai --description "My AI assistant"
 
     # Model can be overridden by setting MAI_OLLAMA_MODEL env var. If not set, use the default.
     if not set --query MAI_OLLAMA_MODEL
-        set --export MAI_OLLAMA_MODEL "qwen2.5-coder:32b"
+        set --universal --export MAI_OLLAMA_MODEL "qwen2.5-coder:32b"
     end
     echo "Using MAI_OLLAMA_MODEL: $MAI_OLLAMA_MODEL" >&2
 

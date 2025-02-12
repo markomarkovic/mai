@@ -5,17 +5,18 @@ function mai-commit --description "Generate a git commit message based on staged
     # - PLAIN: Just the subject and body, no special formatting
     # - CONVENTIONAL: https://www.conventionalcommits.org/en/v1.0.0/
     if not set --query MAI_COMMIT_TYPE
-        set --function MAI_COMMIT_TYPE "PLAIN"
+        set --universal --export MAI_COMMIT_TYPE "PLAIN"
     else if not string match -r '^(PLAIN|CONVENTIONAL)$' $MAI_COMMIT_TYPE
         echo "Invalid MAI_COMMIT_TYPE: $MAI_COMMIT_TYPE. Using PLAIN instead." >&2
-        set --function MAI_COMMIT_TYPE "PLAIN"
+        set --universal --export MAI_COMMIT_TYPE "PLAIN"
     end
     echo "Generating a $MAI_COMMIT_TYPE type commit message" >&2
+    set --local COMMIT_TYPE 1
     switch $MAI_COMMIT_TYPE
         case "PLAIN"
-            set MAI_COMMIT_TYPE 1
+            set COMMIT_TYPE 1
         case "CONVENTIONAL"
-            set MAI_COMMIT_TYPE 2
+            set COMMIT_TYPE 2
     end
 
     argparse h/help e/edit a/amend -- $argv
@@ -93,7 +94,7 @@ ops: Affect infrastructure, deployment, backup, recovery, ...
 chore: Miscellaneous changes e.g. modifying .gitignore
 "
 
-    set --local PROMPT $PROMPT[$MAI_COMMIT_TYPE]
+    set --local PROMPT $PROMPT[$COMMIT_TYPE]
     set --local MESSAGE (ollama run $MAI_OLLAMA_MODEL "$PROMPT\n\n$GIT_DIFF" | string collect)
     set --local TMP_MESSAGE_FILE (mktemp)
     echo "$MESSAGE" > $TMP_MESSAGE_FILE
