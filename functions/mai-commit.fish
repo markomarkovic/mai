@@ -66,7 +66,7 @@ After the initial line, add a description of why the change is needed.
 - Separate the description using two new lines
 "
 
-    set --local MESSAGE (ollama run $OLLAMA_MODEL "$PROMPT\n\n$GIT_DIFF" | string collect)
+    set --local MESSAGE (ollama run $MAI_OLLAMA_MODEL "$PROMPT\n\n$GIT_DIFF" | string collect)
     set --local TMP_MESSAGE_FILE (mktemp)
     echo "$MESSAGE" > $TMP_MESSAGE_FILE
 

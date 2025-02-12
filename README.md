@@ -7,7 +7,7 @@ mAI is an AI assistant designed to help software engineers with various tasks wi
 ## Features
 
 - **Generate Commit Messages**: Automatically generate descriptive and structured commit messages using AI.
-- **Customizable Model**: Use the `OLLAMA_MODEL` environment variable to specify the model used for generating messages.
+- **Customizable Model**: Use the `MAI_OLLAMA_MODEL` environment variable to specify the model used for generating messages.
 
 ## Usage
 
