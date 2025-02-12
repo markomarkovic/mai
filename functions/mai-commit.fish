@@ -35,35 +35,37 @@ function mai-commit --description "Generate a git commit message based on staged
     set -l PROMPT "
 You are an expert software engineer.
 Review the provided context and diffs which are about to be committed to a git repo.
-Review the diffs carefully.
-Generate a commit message for those changes.
-The commit message MUST use the imperative tense and active voice
-The commit message should be structured as follows: <type>[(scope)]: <title>
-The commit message can come with an optional description after the title with a blank line.
-Try making the title shorter than 72 characters
 Reply with JUST the commit message, without quotes, comments, questions, etc!
 Do not use any code snippets, imports, file routes or bulleting points.
 Do not mention the route of the file that has been changed.
-Write clear, concise, and descriptive title that explains the MAIN GOAL of the changes made.
-The scope is optional and provides additional contextual information.
-Optional Breaking changes should be indicated by an ! before the : in the subject line.
+Write clear, concise, and descriptive TITLE that explains the MAIN GOAL of the changes made.
 
-Types:
-- feat: Commits, that add or remove a new feature to the API or UI
-- fix: Commits, that fix a API or UI bug of a preceded feat commit
-- refactor Commits, that rewrite/restructure your code, however do not change any API or UI behaviour
-- perf: Commits are special refactor commits, that improve performance
-- style: Commits, that do not affect the meaning (white-space, formatting, missing semi-colons, etc)
-- test: Commits, that add missing tests or correcting existing tests
-- docs: Commits, that affect documentation only
-- build: Commits, that affect build components like build tool, ci pipeline, dependencies, project version, ...
-- ops: Commits, that affect operational components like infrastructure, deployment, backup, recovery, ...
-- chore: Miscellaneous commits e.g. modifying .gitignore
+Generate a commit message for those changes following these rules:
+- Use imperative tense and active voice.
+- Structure SUBJECT as follows: <TYPE>(optional SCOPE): <TITLE>
+- TITLE should be clear, concise, shorter than 72 characters if possible.
+- SCOPE is optional and provides context, not a file name.
+- Indicate breaking changes with an exclamation mark ! before the colon : in the SUBJECT line.
+- Explain breaking changes in the DESCRIPTION section.
 
-After the initial line, add a description of why the change is needed.
-- Use the imperative mood in the body
-- Include motivation for the change, and contrast this with previous behavior
-- Separate the description using two new lines
+TYPEs:
+feat: Add or remove a new feature
+fix: Fix an API or UI bug of a preceded feat commit
+refactor: Rewrite/restructure code without changing behavior
+perf: Improve performance (special refactor)
+style: Formatting, white-space, missing semi-colons, etc.
+test: Add or correct tests
+docs: Affect documentation only
+build: Affect build tools, ci pipeline, dependencies, version, ...
+ops: Affect infrastructure, deployment, backup, recovery, ...
+chore: Miscellaneous changes e.g. modifying .gitignore
+
+After SUBJECT line, add a DESCRIPTION if necessary.
+- Optional and can provide more context about the change.
+- Write in present tense, active voice, imperative mood.
+- Explain what was changed, why it was necessary with motivation, contrasting previous behavior.
+- Do NOT describe how the change was made.
+- Separate description using two new lines.
 "
 
     set --local MESSAGE (ollama run $MAI_OLLAMA_MODEL "$PROMPT\n\n$GIT_DIFF" | string collect)
