@@ -32,7 +32,7 @@ function mai-commit --description "Generate a git commit message based on staged
         return 1
     end
 
-    set -l PROMPT "
+    set --local PROMPT "
 You are an expert software engineer.
 Review the provided context and diffs which are about to be committed to a git repo.
 Reply with JUST the commit message, without quotes, comments, questions, etc!
